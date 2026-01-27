@@ -1,10 +1,16 @@
 # frontend/pages/project_view.py
 
 import streamlit as st
-from frontend.services.api_client import send_chat_message
+from frontend.services.chat_client import send_chat_message
+
 
 
 def render_project_view():
+
+    if "api_key" not in st.session_state or not st.session_state.api_key:
+        st.error("Please enter your Gemini API key in the sidebar.")
+        st.stop()
+
     # ⬅ Back button
     if st.button("⬅ Back to Projects"):
         st.session_state.pop("selected_project", None)
@@ -33,7 +39,7 @@ def render_project_view():
             api_key=st.session_state.api_key
         )
 
-        assistant_reply = response["structured_response"]
+        assistant_reply = response
 
         st.session_state.messages.append(
             {
