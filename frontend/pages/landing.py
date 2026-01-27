@@ -2,10 +2,8 @@
 
 import streamlit as st
 import requests
-from components.project_card import project_card
-
-BACKEND_URL = "http://localhost:8000/api"
-
+from frontend.components.project_card import project_card
+from frontend.utils.config import BACKEND_URL
 
 def set_project(project_id: str):
     st.session_state.selected_project = project_id

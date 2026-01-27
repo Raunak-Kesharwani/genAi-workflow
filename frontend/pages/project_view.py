@@ -1,12 +1,18 @@
 # frontend/pages/project_view.py
 
 import streamlit as st
-from services.api_client import send_chat_message
+from frontend.services.api_client import send_chat_message
 
 
 def render_project_view():
+    # ⬅ Back button
+    if st.button("⬅ Back to Projects"):
+        st.session_state.pop("selected_project", None)
+        st.session_state.pop("messages", None)
+        st.rerun()
+
     project_id = st.session_state.selected_project
-    st.title(f"🗂 Project: {project_id}")
+    st.title(f"🤖 Project: {project_id}")
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -23,7 +29,6 @@ def render_project_view():
 
         response = send_chat_message(
             project_id=project_id,
-            user_id="1",
             message=user_input,
             api_key=st.session_state.api_key
         )
