@@ -6,9 +6,8 @@ from typing import Any, Dict
 
 class ChatRequest(BaseModel):
     project_id: str
-    user_id: str
     message: str
-    api_key: str | None = None
+    api_key: str
 
 
 class ChatResponse(BaseModel):

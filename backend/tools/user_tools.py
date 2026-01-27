@@ -1,24 +1,17 @@
 # backend/tools/user_tools.py
 
 import requests
-from dataclasses import dataclass
-from langchain.tools import tool, ToolRuntime
-
-
-@dataclass
-class Context:
-    user_id: str
+from langchain.tools import tool
 
 
 @tool
-def get_user_location(runtime: ToolRuntime[Context]) -> str:
+def get_user_location() -> str:
     """
     Get user's city using IP-based lookup.
     """
     try:
         response = requests.get("https://ipapi.co/json/", timeout=5)
         data = response.json()
-        city = data.get("city")
-        return city or "Unknown"
+        return data.get("city") or "Unknown"
     except Exception:
         return "Unknown"
